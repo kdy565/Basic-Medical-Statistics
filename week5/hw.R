@@ -101,7 +101,7 @@ lillie.test(data1$BMI)
 
 #BMI는 정규분포, edu는 따르지 않음
 
-#2-2 Pearson's correlation
-cor.test(data1$edu, data1$BMI, method="pearson")
-#p-value : 0.6188
-#r : -0.01287304
+#2-2 Spearman's correlation
+cor.test(data1$edu, data1$BMI, method="spearman")
+#p-value : 0.6479
+#r : -0.0118158 
