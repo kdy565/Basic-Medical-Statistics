@@ -47,30 +47,16 @@ E_ij = (행의 합 × 열의 합) / 전체 합
 - H0: 음주 여부와 고혈압 이환은 서로 독립이다.
 - H1: 서로 독립이 아니다.
 
-### 분석 코드 (R)
-```r
-library(readr)
-library(gmodels)
-
-data1 <- read_csv("HTN.csv")
-data1_1 <- subset(data1, !is.na(ALCOHL) & !is.na(HTN))
-CrossTable(data1_1$ALCOHL, data1_1$HTN, prop.chisq = FALSE, expected = TRUE)
-chisq.test(data1_1$ALCOHL, data1_1$HTN, correct = FALSE)
-```
-
-### 교차표
+### 교차표 (관찰 / 기대)
 |        | HTN(-) | HTN(+) | 합계 |
 |--------|-------:|-------:|-----:|
-| 음주(-) | 77 | 19 | 96 |
-| 음주(+) | 79 | 25 | 104 |
+| 음주(-) | 77 / 74.88 | 19 / 21.12 | 96 |
+| 음주(+) | 79 / 81.12 | 25 / 22.88 | 104 |
 | 합계 | 156 | 44 | 200 |
 
-기대빈도 예: E_11 = (156 × 96)/200 = 74.88
-
-### 결과 및 해석
-- Pearson χ² = 0.5247, df=1, p=0.4689  
-- Yates 보정 p=0.5799  
-유의수준 5%에서 귀무가설 기각 불가. 음주 여부와 고혈압 이환 간 통계적으로 유의한 연관성은 관찰되지 않았다.
+### 검정 선택 및 p-value
+- 선택: 카이제곱 검정 (모든 기대빈도 ≥ 5이므로 근사 적용 가능)
+- p-value: 0.4689
 
 ---
 
@@ -80,37 +66,16 @@ chisq.test(data1_1$ALCOHL, data1_1$HTN, correct = FALSE)
 - H0: 흡연 여부와 폐암 이환은 서로 독립이다.
 - H1: 서로 독립이 아니다.
 
-### 분석 코드 (R)
-```r
-library(readr)
-library(gmodels)
-
-data2 <- read_csv("sample_1500.csv")
-data2_1 <- subset(data2, !is.na(smok) & !is.na(lung_cancer))
-CrossTable(data2_1$smok, data2_1$lung_cancer, prop.chisq = FALSE, expected = TRUE)
-
-# 카이제곱 검정
-chisq.test(data2_1$smok, data2_1$lung_cancer, correct = FALSE)
-
-# 기대빈도<5 셀이 있어 Fisher 검정 병행
-fisher.test(data2_1$smok, data2_1$lung_cancer)
-```
-
-### 교차표
+### 교차표 (관찰 / 기대)
 |        | 폐암(-) | 폐암(+) | 합계 |
 |--------|-------:|-------:|-----:|
-| 비흡연 | 923 | 3 | 926 |
-| 흡연 | 560 | 10 | 570 |
+| 비흡연 | 923 / 917.95 | 3 / 8.05 | 926 |
+| 흡연 | 560 / 565.05 | 10 / 4.95 | 570 |
 | 합계 | 1483 | 13 | 1496 |
 
-기대빈도: E_12=8.05, E_22=4.95 등 (일부 셀 < 5)
-
-### 결과 및 해석
-- Pearson χ² = 8.38, df=1, p=0.00379  
-- Yates 보정 p=0.00911  
-- Fisher 정확성 검정 p=0.00691, OR=5.49 (95% CI: 1.41–31.17)  
-
-유의수준 5%에서 귀무가설을 기각. 흡연 여부와 폐암 이환 간에는 통계적으로 유의한 연관성이 있으며, 흡연자의 폐암 발생 오즈가 비흡연자 대비 약 5.5배 높게 추정되었다.
+### 검정 선택 및 p-value
+- 선택: Fisher의 정확성 검정 (기대빈도 < 5인 셀이 존재)
+- p-value: 0.00691
 
 ---
 
