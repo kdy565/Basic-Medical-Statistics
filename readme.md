@@ -15,5 +15,5 @@
 각 주차별 폴더를 열면 과제 수행 및 실습 복습을 모두 진행할 수 있음.
 
 # 과제 요약/설명
-## Week 8
-[📄 Week 8 Assignment](./week8/BMS_Week8_Assignment.md)
+## 8주차
+[📄 8주차](./week8/BMS_Week8_Assignment.md)
